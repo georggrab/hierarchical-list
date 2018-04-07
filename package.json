@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme-adapter-react-16": "^1.1.1",
     "flow-bin": "^0.69.0",
     "node-sass-chokidar": "^1.2.2",
     "npm-run-all": "^4.1.2",
@@ -23,6 +24,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
-    "@storybook/react": "^3.4.0"
+    "@storybook/react": "^3.4.0",
+    "enzyme": "^3.3.0"
   }
 }

@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions';
 
 import App from 'components/App';
 import HierarchyList from 'components/HierarchyList';
-import { HierarchyProps } from 'components/HierarchyList';
+import type { HierarchyProps } from 'components/HierarchyList';
 import { flatHierarchy, singleChildHierarchy } from 'testAssets/HierarchyList';
 
 storiesOf('App', module)

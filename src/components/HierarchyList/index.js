@@ -29,9 +29,14 @@ function createHeader(header: string[]) {
 }
 
 function createRow(row: HierarchyPayloadRow, parentIndex: string) {
-    return <section key={parentIndex} className="HierarchyList-Row">
-        {row.columns.map((item, index) => <div key={parentIndex + index}>{item.payload}</div>)}
+    return <div key={parentIndex}>
+        <section className="HierarchyList-Row">
+        {row.columns.map((item, index) => <div 
+            key={parentIndex + index}>{item.payload}</div>)}
     </section>
+        {row.children !== undefined && 
+            <HierarchyList hierarchy={row.children} /> }
+    </div>
 }
 
 function createRows(rows: HierarchyPayloadRow[]) {

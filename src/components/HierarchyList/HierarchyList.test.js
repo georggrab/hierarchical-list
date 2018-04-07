@@ -1,7 +1,9 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import HierarchyList from '.';
@@ -27,6 +29,9 @@ it('produces correct amount of rows', () => {
 });
 
 it('produces a second Hierarchy when children are supplies', () => {
-  const hList = shallow(<HierarchyList hierarchy={singleChildHierarchy} />);
-  expect(hList.find('.HierarchyList').length).toBe(2);
+  const hListRoot = mount(<HierarchyList hierarchy={singleChildHierarchy} />);
+  const hListChild = mount(<HierarchyList hierarchy={singleChildHierarchy.payload[0].children} />);
+  expect(hListRoot.find(HierarchyList).length).toBe(2);
+  expect(hListRoot.find(HierarchyList).last().html())
+    .toEqual(hListChild.html());
 });

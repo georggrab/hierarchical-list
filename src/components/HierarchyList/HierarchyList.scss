@@ -1,4 +1,14 @@
 .HierarchyList {
+    div {
+        .HierarchyList {
+            padding: 20px 0 20px 20px;
+        }
+    }
+
+    div:nth-child(2n - 1) .HierarchyList-Row {
+        background-color: lightgrey;
+    }
+
     section {
         display: flex;
         transition: background-color linear .2s;
@@ -16,9 +26,5 @@
 
     section.HierarchyList-Header {
         font-weight: bold;
-    }
-
-    section.HierarchyList-Row:nth-child(2n) {
-        background-color: lightgrey;
     }
 }

@@ -1,4 +1,5 @@
-import type { Hierarchy } from 'components/HierarchyList'
+// @flow
+import type { Hierarchy } from "../components/HierarchyList";
 
 export const flatHierarchy: Hierarchy = {
     headers: ['First', 'Second'],
@@ -22,4 +23,33 @@ export const flatHierarchy: Hierarchy = {
         ]
       },
     ]
+}
+
+export const singleChildHierarchy: Hierarchy = {
+  headers: ['foo', 'bar'],
+  payload: [
+    {
+      columns: [
+        {type: 'string', payload: 'bat'},
+        {type: 'string', payload: 'bat'},
+      ],
+      children: {
+        headers: ['foo2', 'bar2'],
+        payload: [
+          {
+            columns: [
+              {type: 'string', payload: 'ohai from depth 2!'},
+              {type: 'string', payload: 'ohai from depth 2!'}
+            ]
+          }
+        ]
+      } 
+    },
+    {
+      columns: [
+        {type: 'string', payload: 'second'},
+        {type: 'string', payload: 'third'},
+      ]
+    }
+  ]
 }

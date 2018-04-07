@@ -25,17 +25,25 @@ export type HierarchyProps = {
 
 function createHeader(header: string[]) {
     return <section className="HierarchyList-Header">
-        {header.map((headerField, index) => <div key={index}>{headerField}</div>)}
+        {header.map(createCell)}
     </section>;
+}
+
+function createCell(content: any, index: number | string) {
+    return <p className="cell" key={index}>{content}</p>;
 }
 
 function createRow(row: HierarchyPayloadRow, parentIndex: string) {
     return <div key={parentIndex}>
-        <section className="HierarchyList-Row">
-        {row.columns.map((item, index) => <div 
-            key={parentIndex + index}>{item.payload}</div>)}
+    <section className="HierarchyList-Row">
+        <div className="HierarchyList-RowExpand">
+            {row.children !== undefined &&
+                <p className={row.expanded? "HierarchyList-RowExpand--down" : ""}>▶</p>
+            }
+        </div> 
+        {row.columns.map((item, index) => createCell(item.payload, parentIndex + index))}
     </section>
-        {row.children !== undefined && 
+        {row.children !== undefined && row.expanded &&
             <HierarchyList hierarchy={row.children} /> }
     </div>
 }

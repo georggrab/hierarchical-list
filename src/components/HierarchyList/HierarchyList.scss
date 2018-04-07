@@ -1,22 +1,22 @@
 .HierarchyList {
-    div {
-        .HierarchyList {
-            padding: 20px 0 20px 20px;
-        }
+    /* Apply padding to child HierarchyLists */
+    div .HierarchyList {
+        padding: 20px 0 20px 20px;
     }
 
-    div:nth-child(2n - 1) .HierarchyList-Row {
+    > div:nth-child(2n - 1) {
         background-color: lightgrey;
     }
 
-    section {
+    .HierarchyList-Row, .HierarchyList-Header {
         display: flex;
         transition: background-color linear .2s;
-        div {
+        .cell {
             flex: 1;
             text-align: left;
             border: 1px solid whitesmoke;
             padding: 3px;
+            margin: 0;
         }
     }
 
@@ -26,5 +26,21 @@
 
     section.HierarchyList-Header {
         font-weight: bold;
+        padding-left: 40px;
     }
+}
+
+.HierarchyList-RowExpand {
+    width: 40px;
+    cursor: pointer;
+    user-select: none;
+    p {
+        transition: transform linear .15s;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+.HierarchyList-RowExpand--down p {
+    transform: rotate(90deg);
 }

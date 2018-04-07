@@ -26,10 +26,15 @@ it('produces correct amount of rows', () => {
   expect(hList.find('section').length).toBe(4);
 });
 
-it('produces a second Hierarchy when children are supplies', () => {
+it('produces a expand arrow when children are supplied', () => {
+  const hListRoot = mount(<HierarchyList hierarchy={singleChildHierarchy} />);
+  expect(hListRoot.find('.HierarchyList-RowExpand p').length).toBe(1);
+});
+
+it('produces a second HierarchyList when Expand Button is clicked', () => {
   const hListRoot = mount(<HierarchyList hierarchy={singleChildHierarchy} />);
   const hListChild = mount(<HierarchyList hierarchy={singleChildHierarchy.payload[0].children} />);
-  expect(hListRoot.find(HierarchyList).length).toBe(2);
+  hListRoot.find('.HierarchyList-RowExpand p').simulate('click');
   expect(hListRoot.find(HierarchyList).last().html())
     .toEqual(hListChild.html());
 });

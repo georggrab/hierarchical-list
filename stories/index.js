@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -5,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import App from 'components/App';
 import HierarchyList from 'components/HierarchyList';
 import { HierarchyProps } from 'components/HierarchyList';
-import { flatHierarchy } from 'testAssets/HierarchyList';
+import { flatHierarchy, singleChildHierarchy } from 'testAssets/HierarchyList';
 
 storiesOf('App', module)
   .add('whole application', () => (
@@ -15,4 +17,7 @@ storiesOf('App', module)
 storiesOf('HierarchyList', module)
   .add('flat hierarchy', () => (
     <HierarchyList hierarchy={ flatHierarchy }></HierarchyList>
+  ))
+  .add('single child hierarchy', () => (
+    <HierarchyList hierarchy={ singleChildHierarchy } />
   ))

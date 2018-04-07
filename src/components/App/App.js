@@ -1,10 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from 'assets/logo.svg';
 import './App.css';
 
-export class App extends Component<void> {
+class App extends Component<void> {
   render() {
     return (
       // $FlowFixMe: Types for React 16.3 are not in flowlib yet

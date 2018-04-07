@@ -7,6 +7,8 @@ import './App.css';
 class App extends Component<void> {
   render() {
     return (
+      // $FlowFixMe: Types for React 16.3 are not in flowlib yet
+      <React.StrictMode>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -16,6 +18,7 @@ class App extends Component<void> {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
+      </React.StrictMode>
     );
   }
 }

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component<void> {
+export class App extends Component<void> {
   render() {
     return (
       // $FlowFixMe: Types for React 16.3 are not in flowlib yet

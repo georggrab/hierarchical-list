@@ -11,6 +11,7 @@ export type HierarchyPayload = {
 export type HierarchyPayloadRow = {
     columns: HierarchyPayload[],
     children?: Hierarchy,
+    expanded: boolean,
 }
 
 export type Hierarchy = {

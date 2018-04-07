@@ -1,0 +1,24 @@
+.HierarchyList {
+    section {
+        display: flex;
+        transition: background-color linear .2s;
+        div {
+            flex: 1;
+            text-align: left;
+            border: 1px solid whitesmoke;
+            padding: 3px;
+        }
+    }
+
+    section:hover {
+        background-color: whitesmoke;
+    }
+
+    section.HierarchyList-Header {
+        font-weight: bold;
+    }
+
+    section.HierarchyList-Row:nth-child(2n) {
+        background-color: lightgrey;
+    }
+}

@@ -1,61 +1,102 @@
 // @flow
-import type { Hierarchy } from "../components/HierarchyList";
+import { List, Map, Record, fromJS } from 'immutable'
 
-export const flatHierarchy: Hierarchy = {
-    headers: ['First', 'Second'],
-    payload: [
-      {
-        columns: [
-          {type: 'string', payload: 'First Row First Column'},
-          {type: 'string', payload: 'First Row Second Column'},
-        ],
+import type { State } from 'state';
+import type { HierarchyRecord } from 'state/ducks/hierarchy';
+import { newPayloadRow, newHierarchy } from 'state/ducks/hierarchy';
+
+export const flatHierarchyMap = Map()
+  .set(0, newHierarchy({
+    headers: List(['foo', 'bar']),
+    hierarchyIndex: 0,
+    payload: List([
+      newPayloadRow({
+        rowIndex: 0,
+        columns: List([
+          {type: 'string', payload: 'bat'},
+          {type: 'string', payload: 'bat'},
+        ]),
         expanded: false,
-      },
-      {
-        columns: [
-          {type: 'string', payload: 'Second Row First Column'},
-          {type: 'string', payload: 'Second Row Second Column'},
-        ],
+      }),
+      newPayloadRow({
+        columns: List([
+          {type: 'string', payload: 'second'},
+          {type: 'string', payload: 'third'},
+        ]),
+        rowIndex: 1,
         expanded: false,
-      },
-      {
-        columns: [
-          {type: 'string', payload: 'Third Row First Column'},
-          {type: 'string', payload: 'Third Row Second Column'},
-        ],
+      }),
+      newPayloadRow({
+        columns: List([
+          {type: 'string', payload: 'second'},
+          {type: 'string', payload: 'third'},
+        ]),
+        rowIndex: 2,
         expanded: false,
-      },
-    ]
+      }),
+    ]),
+  }))
+  .set(1, newHierarchy({
+    headers: List(['foo2', 'bar2']),
+    hierarchyIndex: 1,
+    payload: List([
+      newPayloadRow({
+        rowIndex: 0,
+        columns: List([
+          {type: 'string', payload: 'ohai from depth 2!'},
+          {type: 'string', payload: 'ohai from depth 2!'}
+        ]),
+        expanded: false,
+      })
+    ]),
+  }))
+
+export const flatHierarchyState : State = {
+  hierarchies: flatHierarchyMap,
+  rootHierarchy: 0,
 }
 
-export const singleChildHierarchy: Hierarchy = {
-  headers: ['foo', 'bar'],
-  payload: [
-    {
-      columns: [
-        {type: 'string', payload: 'bat'},
-        {type: 'string', payload: 'bat'},
-      ],
-      expanded: false,
-      children: {
-        headers: ['foo2', 'bar2'],
-        payload: [
-          {
-            columns: [
-              {type: 'string', payload: 'ohai from depth 2!'},
-              {type: 'string', payload: 'ohai from depth 2!'}
-            ],
-            expanded: false,
-          }
-        ]
-      } 
-    },
-    {
-      columns: [
-        {type: 'string', payload: 'second'},
-        {type: 'string', payload: 'third'},
-      ],
-      expanded: false,
-    }
-  ]
+  
+export const singleChildHierarchyMap = Map()
+  .set(0, newHierarchy({
+    headers: List(['foo', 'bar']),
+    hierarchyIndex: 0,
+    payload: List([
+      newPayloadRow({
+        rowIndex: 0,
+        columns: List([
+          {type: 'string', payload: 'bat'},
+          {type: 'string', payload: 'bat'},
+        ]),
+        expanded: false,
+        childId: 1,
+      }),
+      newPayloadRow({
+        columns: List([
+          {type: 'string', payload: 'second'},
+          {type: 'string', payload: 'third'},
+        ]),
+        rowIndex: 1,
+        expanded: false,
+      }),
+    ]),
+  }))
+  .set(1, newHierarchy({
+    headers: List(['foo2', 'bar2']),
+    hierarchyIndex: 1,
+    payload: List([
+      newPayloadRow({
+        rowIndex: 0,
+        columns: List([
+          {type: 'string', payload: 'ohai from depth 2!'},
+          {type: 'string', payload: 'ohai from depth 2!'}
+        ]),
+        expanded: false,
+      })
+    ]),
+  }))
+
+export const singleChildHierarchyState : State = {
+  hierarchies: singleChildHierarchyMap,
+  rootHierarchy: 0,
 }

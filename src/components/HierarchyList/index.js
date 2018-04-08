@@ -1,60 +1,68 @@
 // @flow
 import React, { Component } from 'react';
 
+import type { RecordOf, RecordFactory } from 'immutable';
+import { List, Map, Record } from 'immutable';
+
+import type { HierarchyRowRecord, RowExpandCallback, HierarchyRecord } from 'state/ducks/hierarchy'
+
 import './HierarchyList.css';
 
-export type HierarchyPayload = {
-    type: 'string' | 'number' | 'boolean' | 'date',
-    payload: any,
-}
-
-export type HierarchyPayloadRow = {
-    columns: HierarchyPayload[],
-    children?: Hierarchy,
-    expanded: boolean,
-}
-
-export type Hierarchy = {
-    headers: string[];
-    payload: HierarchyPayloadRow[],
-}
-
 export type HierarchyProps = {
-    hierarchy: Hierarchy,
+    hierarchies: Map<number, HierarchyRecord>,
+    rootHierarchy: ?number,
+    onRowExpand: RowExpandCallback,
 }
 
-function createHeader(header: string[]) {
+const createCell = (content: any, index: number | string) => {
+    return <p className="cell" key={index}>{content}</p>;
+}
+
+const Row = ({row, hierarchyIndex, onRowExpand, hierarchies}) => {
+    return <div>
+    <section className="HierarchyList-Row">
+        <div className="HierarchyList-RowExpand">
+            {row.childId != null &&
+                <p onClick={() => onRowExpand(hierarchyIndex, row.rowIndex, !row.expanded)} 
+                    className={row.expanded? "HierarchyList-RowExpand--down" : ""}>▶</p>
+            }
+        </div> 
+        {row.columns.map((item, index) => createCell(item.payload, index))}
+    </section>
+        {row.childId != null && row.expanded &&
+            <HierarchyList 
+                rootHierarchy={row.childId}
+                onRowExpand={onRowExpand} 
+                hierarchies={hierarchies} /> }
+    </div>
+}
+
+const createHeader = (header: List<string>) => {
     return <section className="HierarchyList-Header">
         {header.map(createCell)}
     </section>;
 }
 
-function createCell(content: any, index: number | string) {
-    return <p className="cell" key={index}>{content}</p>;
-}
-
-function createRow(row: HierarchyPayloadRow, parentIndex: string) {
-    return <div key={parentIndex}>
-    <section className="HierarchyList-Row">
-        <div className="HierarchyList-RowExpand">
-            {row.children !== undefined &&
-                <p className={row.expanded? "HierarchyList-RowExpand--down" : ""}>▶</p>
-            }
-        </div> 
-        {row.columns.map((item, index) => createCell(item.payload, parentIndex + index))}
-    </section>
-        {row.children !== undefined && row.expanded &&
-            <HierarchyList hierarchy={row.children} /> }
-    </div>
-}
-
-function createRows(rows: HierarchyPayloadRow[]) {
-    return rows.map((row, index) => createRow(row, index.toString()));
+function createRows(rows: List<HierarchyRowRecord>, hierarchyIndex: number, onRowExpand: RowExpandCallback, hierarchies: Map<number, HierarchyRecord>) {
+    return rows.map((row) => 
+        <Row 
+            hierarchies={hierarchies}
+            key={row.rowIndex} 
+            hierarchyIndex={hierarchyIndex} 
+            row={row} 
+            onRowExpand={onRowExpand} />);
 }
 
 export default function HierarchyList(props: HierarchyProps) {
+    if (props.rootHierarchy == null) {
+        return <div className="HierarchyList HierarchyList--empty"></div>;
+    }
+    const hierarchy = props.hierarchies.get(props.rootHierarchy)
+    if (hierarchy == null) {
+        throw Error('Invalid Hierarchy input')
+    }
     return (<div className="HierarchyList">
-        {createHeader(props.hierarchy.headers)}
-        {createRows(props.hierarchy.payload)} 
+        {createHeader(hierarchy.headers)}
+        {createRows(hierarchy.payload, hierarchy.hierarchyIndex, props.onRowExpand, props.hierarchies)} 
     </div>);
 }

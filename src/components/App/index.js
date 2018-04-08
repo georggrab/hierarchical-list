@@ -5,7 +5,8 @@ import logo from 'assets/logo.svg';
 import './App.css';
 
 import HierarchyList from 'components/HierarchyList';
-import type { Hierarchy, HierarchyProps } from 'components/HierarchyList';
+import Hierarchy from 'containers/Hierarchy';
+import type { HierarchyProps } from 'components/HierarchyList';
 
 import { flatHierarchy } from 'testAssets/HierarchyList';
 
@@ -21,7 +22,7 @@ class App extends Component<void> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <HierarchyList hierarchy={flatHierarchy}></HierarchyList>
+        <Hierarchy />
       </div>
       </React.StrictMode>
     );

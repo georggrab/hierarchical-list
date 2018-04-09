@@ -2,7 +2,7 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import { Map } from 'immutable';
 
-import { LOAD_COMPLETE, LOAD_STARTED, LOAD_ERROR } from './types';
+import { LOAD_COMPLETE, LOAD_STARTED, LOAD_ERROR, LOAD_INVALIDATED } from './types';
 import type { HierarchyLoadAction } from './types';
 
 import { jsonToHierarchy } from './utils';
@@ -30,5 +30,6 @@ function* transformHierarchy(action: HierarchyLoadAction) {
 // @flow-disable
 export function* fetchHierarchySaga() {
     yield takeLatest(LOAD_STARTED, fetchHierarchy)
+    yield takeLatest(LOAD_INVALIDATED, fetchHierarchy)
     yield takeLatest(LOAD_COMPLETE, transformHierarchy)
 }

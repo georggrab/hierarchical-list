@@ -11,7 +11,7 @@ export type HierarchyLoadAction =
     | { type: 'app/fetchHierarchy/LOAD_STARTED', url: string }
     | { type: 'app/fetchHierarchy/LOAD_COMPLETE', data: any }
     | { type: 'app/fetchHierarchy/LOAD_ERROR', message: string }
-    | { type: 'app/fetchHierarchy/LOAD_INVALIDATED' }
+    | { type: 'app/fetchHierarchy/LOAD_INVALIDATED', url: string }
 
 type LoadStatus = {
     isLoading: boolean,

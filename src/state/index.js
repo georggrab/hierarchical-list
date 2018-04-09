@@ -6,7 +6,7 @@ import type { HierarchyRecord, HierarchyAction } from './ducks/hierarchy'
 import hierarchyReducer, { rootHierarchyReducer } from './ducks/hierarchy'
 
 import type { LoadStatusRecord, HierarchyLoadAction } from './ducks/fetchHierarchy'
-import { newLoadStatus } from './ducks/fetchHierarchy'
+import loadStatusReducer, { newLoadStatus } from './ducks/fetchHierarchy'
 
 export type State = {
     +hierarchies: Map<number, HierarchyRecord>,
@@ -24,7 +24,7 @@ export const initialState: State = {
     loadStatus: newLoadStatus({
         isLoading: false,
         isInvalidated: false,
-        dataOrigin: '/public/data.json'
+        dataOrigin: '/data-1.json'
     })
 };
 
@@ -32,5 +32,6 @@ export const hierarchyApp = (state: State = initialState, action: Action) => {
     return {
         hierarchies: hierarchyReducer(state.hierarchies, action),
         rootHierarchy: rootHierarchyReducer(state.rootHierarchy, action),
+        loadStatus: loadStatusReducer(state.loadStatus, action),
     }
 }

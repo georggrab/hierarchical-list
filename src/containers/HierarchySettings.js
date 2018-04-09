@@ -2,15 +2,20 @@
 import { connect } from 'react-redux';
 
 import HierarchyListSettings from 'components/HierarchyListSettings';
-import { expandAll, collapseAll } from 'state/ducks/hierarchy/index';
+import { expandAll, collapseAll } from 'state/ducks/hierarchy';
+import { loadInvalidated } from 'state/ducks/fetchHierarchy';
+import type { State } from 'state'
 
-const mapStateToProps = state => {
-    return {  }
+const mapStateToProps = (state: State) => {
+    return {  
+        invalidateUrl : state.loadStatus.dataOrigin,
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onInvalidateClicked: () => {
+        onInvalidateClicked: (url: string) => {
+            dispatch(loadInvalidated(url));
         },
         onCollapseAllClicked: () => {
             dispatch(collapseAll());

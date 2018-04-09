@@ -12,6 +12,12 @@ export default function reducer(state: LoadStatusRecord = newLoadStatus(), actio
         case LOAD_COMPLETE: {
             return state.set('isLoading', false).set('isInvalidated', false)
         }
+        case LOAD_INVALIDATED: {
+            return state.set('isInvalidated', true)
+        }
+        case LOAD_ERROR: {
+            return state.set('isLoading', false)
+        }
         default:
             return state
     }
@@ -29,8 +35,8 @@ export const loadError = (message: string): HierarchyLoadAction => {
     return { type: LOAD_ERROR, message }
 }
 
-export const loadInvalidated = (): HierarchyLoadAction => { 
-    return { type: LOAD_INVALIDATED }
+export const loadInvalidated = (url: string): HierarchyLoadAction => { 
+    return { type: LOAD_INVALIDATED, url }
 }
 
 export * from './types'

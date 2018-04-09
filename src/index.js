@@ -19,7 +19,6 @@ const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     hierarchyApp, 
-    multiNestedChildHierarchyState,
     composeEnhancers(
         applyMiddleware(sagaMiddleware)
     )
@@ -27,7 +26,7 @@ const store = createStore(
 
 sagaMiddleware.run(fetchHierarchySaga)
 
-store.dispatch({ type: LOAD_STARTED, url: '/data-1.json' })
+store.dispatch({ type: LOAD_STARTED, url: store.getState().loadStatus.dataOrigin })
 
 ReactDOM.render(
     <Provider store={store}>

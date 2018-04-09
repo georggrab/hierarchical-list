@@ -54,12 +54,13 @@ function createRows(rows: List<HierarchyRowRecord>, hierarchyIndex: number, onRo
 }
 
 export default function HierarchyList(props: HierarchyProps) {
-    if (props.rootHierarchy == null) {
-        return <div className="HierarchyList HierarchyList--empty"></div>;
+    const empty = <div className="HierarchyList HierarchyList--empty"></div>;
+    if (props.rootHierarchy == null || props.hierarchies == null) {
+        return empty;
     }
     const hierarchy = props.hierarchies.get(props.rootHierarchy)
     if (hierarchy == null) {
-        throw Error('Invalid Hierarchy input')
+        return empty;
     }
     return (<div className="HierarchyList">
         {createHeader(hierarchy.headers)}

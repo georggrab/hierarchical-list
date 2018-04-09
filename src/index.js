@@ -7,9 +7,9 @@ import './index.css';
 import App from 'components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { hierarchyApp } from './state';
-import { singleChildHierarchyState, flatHierarchyState } from './testAssets/HierarchyList';
+import { singleChildHierarchyState, flatHierarchyState, multiNestedChildHierarchyState } from './testAssets/HierarchyList';
 
-const store = createStore(hierarchyApp, singleChildHierarchyState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(hierarchyApp, multiNestedChildHierarchyState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>

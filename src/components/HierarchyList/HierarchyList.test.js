@@ -51,3 +51,7 @@ it('fires rowExpand callback when expand button is clicked', () => {
   hListRoot.find('.HierarchyList-RowExpand p').simulate('click');
   expect(rowExpandClicked).toBe(true);
 });
+
+it('asd', () => {
+
+})

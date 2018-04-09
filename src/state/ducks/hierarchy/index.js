@@ -6,12 +6,16 @@ import type { HierarchyRecord } from 'state/ducks/hierarchy'
 
 export const EXPAND_ROW = 'app/hierarchy/EXPAND_ROW'
 export const SET_HIERARCHIES = 'app/hierarchy/SET_HIERARCHIES'
+export const EXPAND_ALL = 'app/hierarchy/EXPAND_ALL'
+export const COLLAPSE_ALL = 'app/hierarchy/COLLAPSE_ALL'
 
 export type HierarchyAction =
     | { type: 'app/hierarchy/EXPAND_ROW', 
         hierarchyIndex: number, rowIndex: number, destinationState: boolean}
     | { type: 'app/hierarchy/SET_HIERARCHIES',
         hierarchies: Map<number, HierarchyRecord> }
+    | { type: 'app/hierarchy/EXPAND_ALL' }
+    | { type: 'app/hierarchy/COLLAPSE_ALL' }
 
 export default function reducer(state: Map<number, HierarchyRecord> = Map(), action: Action) {
     switch (action.type) {
@@ -25,9 +29,23 @@ export default function reducer(state: Map<number, HierarchyRecord> = Map(), act
         case SET_HIERARCHIES: {
             return action.hierarchies;
         }
+        case EXPAND_ALL: {
+            return toggleHierarchy(state, true);
+        }
+        case COLLAPSE_ALL: {
+            return toggleHierarchy(state, false);
+        }
         default:
             return state
     }
+}
+
+function toggleHierarchy(state: Map<number, HierarchyRecord>, to: boolean): Map<number, HierarchyRecord> {
+    return state.map((hierarchy) => {
+        return hierarchy.set('payload', hierarchy.payload.map((row) => {
+            return row.set('expanded', to);
+        }));
+    });
 }
 
 export function rootHierarchyReducer(state: number, action: Action) {
@@ -44,6 +62,14 @@ export const expandRow = (hierarchyIndex: number, rowIndex: number, destinationS
         rowIndex,
         destinationState
     }
+}
+
+export const expandAll = () => {
+    return { type: EXPAND_ALL }
+}
+
+export const collapseAll = () => {
+    return { type: COLLAPSE_ALL }
 }
 
 export * from './types'

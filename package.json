@@ -13,7 +13,8 @@
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "typeface-inconsolata": "^0.0.54"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

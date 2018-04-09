@@ -1,0 +1,16 @@
+.HierarchyListSettings {
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 5px;
+    div {
+        margin-left: 10px;
+        font-size: 0.7em;
+        cursor: pointer;
+        color: darkblue;
+        transition: color .1s linear;
+    }
+    div:hover {
+        color: lightblue;
+    }
+}

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import logo from 'assets/logo.svg';
 import './App.css';
 
@@ -8,25 +8,17 @@ import HierarchyList from 'components/HierarchyList';
 import Hierarchy from 'containers/Hierarchy';
 import type { HierarchyProps } from 'components/HierarchyList';
 
-import { flatHierarchy } from 'testAssets/HierarchyList';
-
-class App extends Component<void> {
-  hierarchy = {};
-
-  render() {
-    return (
-      // $FlowFixMe: Types for React 16.3 are not in flowlib yet
-      <React.StrictMode>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <Hierarchy />
-      </div>
-      </React.StrictMode>
-    );
-  }
+const App = () => {
+  return (
+    // $FlowFixMe: Types for React 16.3 are not in flowlib yet
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">Welcome to React</h1>
+      </header>
+      <Hierarchy />
+    </div>
+  )
 }
 
-export default App;
+export default App

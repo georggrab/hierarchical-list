@@ -10,9 +10,9 @@ export type HierarchyListSettingsProps = {
 
 export const HierarchyListSettings = (props: HierarchyListSettingsProps) => {
     return <section className="HierarchyListSettings">
-        <div onClick={props.onExpandAllClicked}>expand all</div>
-        <div onClick={props.onCollapseAllClicked}>collapse all</div>
-        <div onClick={() => {props.onInvalidateClicked(props.invalidateUrl)}}>invalidate</div>
+        <div className="expand" onClick={props.onExpandAllClicked}>expand all</div>
+        <div className="collapse" onClick={props.onCollapseAllClicked}>collapse all</div>
+        <div className="invalidate" onClick={() => {props.onInvalidateClicked(props.invalidateUrl)}}>invalidate</div>
     </section>
 }
 

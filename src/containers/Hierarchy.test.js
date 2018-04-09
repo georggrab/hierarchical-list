@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 
 import Hierarchy from 'containers/Hierarchy';
 import { commonTestSetup } from 'commonTest';
-import { multiNestedChildHierarchyState } from 'testAssets/HierarchyList';
+import { multiNestedChildHierarchyState } from 'testAssets/state';
 import { EXPAND_ROW } from 'state/ducks/hierarchy/index';
 
 const { store } = commonTestSetup(multiNestedChildHierarchyState)

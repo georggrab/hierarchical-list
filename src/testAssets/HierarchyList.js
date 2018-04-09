@@ -51,11 +51,6 @@ export const flatHierarchyMap = Map()
     ]),
   }))
 
-export const flatHierarchyState : State = {
-  hierarchies: flatHierarchyMap,
-  rootHierarchy: 0,
-}
-
   
 export const singleChildHierarchyMap = Map()
   .set(0, newHierarchy({
@@ -95,11 +90,6 @@ export const singleChildHierarchyMap = Map()
       })
     ]),
   }))
-
-export const singleChildHierarchyState : State = {
-  hierarchies: singleChildHierarchyMap,
-  rootHierarchy: 0,
-}
 
 export const multiNestedChildHierarchy = Map()
   .set(0, newHierarchy({
@@ -193,8 +183,3 @@ export const multiNestedChildHierarchy = Map()
       }),
     ]),
   }))
-
-export const multiNestedChildHierarchyState : State = {
-  rootHierarchy: 0,
-  hierarchies: multiNestedChildHierarchy
-}

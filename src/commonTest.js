@@ -6,8 +6,9 @@ import createSagaMiddleware from 'redux-saga';
 import configureStore from 'redux-mock-store';
 
 import { fetchHierarchySaga } from 'state/ducks/fetchHierarchy'
+import { initialState } from 'state';
 
-export const commonTestSetup = (state = {}) => {
+export const commonTestSetup = (state = initialState) => {
     const sagaMiddleWare = createSagaMiddleware()
     const mockStore = configureStore([sagaMiddleWare])
     const store = mockStore(state)

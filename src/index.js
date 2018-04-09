@@ -1,5 +1,7 @@
+// @flow
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
@@ -9,7 +11,23 @@ import registerServiceWorker from './registerServiceWorker';
 import { hierarchyApp } from './state';
 import { singleChildHierarchyState, flatHierarchyState, multiNestedChildHierarchyState } from './testAssets/HierarchyList';
 
-const store = createStore(hierarchyApp, multiNestedChildHierarchyState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+import { fetchHierarchySaga } from 'state/ducks/fetchHierarchy'
+import { LOAD_STARTED } from './state/ducks/fetchHierarchy/types';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    hierarchyApp, 
+    multiNestedChildHierarchyState,
+    composeEnhancers(
+        applyMiddleware(sagaMiddleware)
+    )
+)
+
+sagaMiddleware.run(fetchHierarchySaga)
+
+store.dispatch({ type: LOAD_STARTED, url: '/data-1.json' })
 
 ReactDOM.render(
     <Provider store={store}>

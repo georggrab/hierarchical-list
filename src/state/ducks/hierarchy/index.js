@@ -8,6 +8,7 @@ export const EXPAND_ROW = 'app/hierarchy/EXPAND_ROW'
 export const SET_HIERARCHIES = 'app/hierarchy/SET_HIERARCHIES'
 export const EXPAND_ALL = 'app/hierarchy/EXPAND_ALL'
 export const COLLAPSE_ALL = 'app/hierarchy/COLLAPSE_ALL'
+export const DELETE_ROW = 'app/hierarchy/DELETE_ROW'
 
 export type HierarchyAction =
     | { type: 'app/hierarchy/EXPAND_ROW', 
@@ -16,6 +17,7 @@ export type HierarchyAction =
         hierarchies: Map<number, HierarchyRecord> }
     | { type: 'app/hierarchy/EXPAND_ALL' }
     | { type: 'app/hierarchy/COLLAPSE_ALL' }
+    | { type: 'app/hierarchy/DELETE_ROW', hierarchyIndex: number, rowIndex: number }
 
 export default function reducer(state: Map<number, HierarchyRecord> = Map(), action: Action) {
     switch (action.type) {
@@ -61,6 +63,14 @@ export const expandRow = (hierarchyIndex: number, rowIndex: number, destinationS
         hierarchyIndex,
         rowIndex,
         destinationState
+    }
+}
+
+export const deleteRow = (hierarchyIndex: number, rowIndex: number) => {
+    return {  
+        type: DELETE_ROW,
+        hierarchyIndex,
+        rowIndex,
     }
 }
 

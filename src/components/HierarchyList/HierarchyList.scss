@@ -28,17 +28,34 @@
     }
 }
 
-.HierarchyList-RowExpand {
-    width: 40px;
+%hierarchyListButton {
+    width: 20px;
     user-select: none;
     p {
-        transition: transform linear .15s;
-        text-align: center;
         margin: 0;
         cursor: pointer;
     }
 }
 
+.HierarchyList-RowExpand {
+    @extend %hierarchyListButton;
+    p {
+        transition: transform linear .15s;
+        text-align: center;
+    }
+}
+
 .HierarchyList-RowExpand--down {
     transform: rotate(90deg);
+}
+
+.HierarchyList-RowDelete {
+    @extend %hierarchyListButton;
+    p {
+        opacity: .6;
+        transition: opacity linear .15s;
+    }
+    p:hover {
+        opacity: 1;
+    }
 }

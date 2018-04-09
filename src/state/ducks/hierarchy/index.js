@@ -37,6 +37,11 @@ export default function reducer(state: Map<number, HierarchyRecord> = Map(), act
         case COLLAPSE_ALL: {
             return toggleHierarchy(state, false);
         }
+        case DELETE_ROW: {
+            const row = state.getIn([action.hierarchyIndex, 'payload', action.rowIndex])
+            const newState = deleteHierarchies(state, row);
+            return withoutRow(newState, action.hierarchyIndex, action.rowIndex);
+        }
         default:
             return state
     }

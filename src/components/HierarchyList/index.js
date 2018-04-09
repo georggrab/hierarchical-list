@@ -12,15 +12,19 @@ export type HierarchyProps = {
     hierarchies: Map<number, HierarchyRecord>,
     rootHierarchy: ?number,
     onRowExpand: RowExpandCallback,
+    onRowDelete: (hierarchyIndex: number, rowIndex: number) => void,
 }
 
 const createCell = (content: any, index: number | string) => {
     return <p className="cell" key={index}>{content}</p>;
 }
 
-const Row = ({row, hierarchyIndex, onRowExpand, hierarchies}) => {
+const Row = ({row, hierarchyIndex, onRowExpand, onRowDelete, hierarchies}) => {
     return <div>
     <section className="HierarchyList-Row">
+        <div className="HierarchyList-RowDelete">
+            <p onClick={() => onRowDelete(hierarchyIndex, row.rowIndex)}>🞨</p>
+        </div>
         <div className="HierarchyList-RowExpand">
             {row.childId != null &&
                 <p onClick={() => onRowExpand(hierarchyIndex, row.rowIndex, !row.expanded)} 
@@ -33,6 +37,7 @@ const Row = ({row, hierarchyIndex, onRowExpand, hierarchies}) => {
             <HierarchyList 
                 rootHierarchy={row.childId}
                 onRowExpand={onRowExpand} 
+                onRowDelete={onRowDelete}
                 hierarchies={hierarchies} /> }
     </div>
 }
@@ -43,14 +48,9 @@ const createHeader = (header: List<string>) => {
     </section>;
 }
 
-function createRows(rows: List<HierarchyRowRecord>, hierarchyIndex: number, onRowExpand: RowExpandCallback, hierarchies: Map<number, HierarchyRecord>) {
+function createRows(rows: List<HierarchyRowRecord>, childProps) {
     return rows.map((row) => 
-        <Row 
-            hierarchies={hierarchies}
-            key={row.rowIndex} 
-            hierarchyIndex={hierarchyIndex} 
-            row={row} 
-            onRowExpand={onRowExpand} />);
+        <Row {...childProps} row={row} key={row.rowIndex} />);
 }
 
 export default function HierarchyList(props: HierarchyProps) {
@@ -64,6 +64,10 @@ export default function HierarchyList(props: HierarchyProps) {
     }
     return (<div className="HierarchyList">
         {createHeader(hierarchy.headers)}
-        {createRows(hierarchy.payload, hierarchy.hierarchyIndex, props.onRowExpand, props.hierarchies)} 
+        {createRows(hierarchy.payload, 
+            { hierarchyIndex: hierarchy.hierarchyIndex, 
+              onRowExpand: props.onRowExpand, 
+              onRowDelete: props.onRowDelete,
+              hierarchies: props.hierarchies }) }
     </div>);
 }

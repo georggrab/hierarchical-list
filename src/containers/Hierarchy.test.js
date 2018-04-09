@@ -30,7 +30,8 @@ it('should dispatch DELETE_ROW', () => {
     const el = mount(<Hierarchy 
         store={store}/>)
 
-    el.find('.HierarchyList-RowExpand .delete')
+    el.find('.HierarchyList-RowDelete p')
+        .first()
         .simulate('click')
     expect(store.getActions())
         .toEqual([

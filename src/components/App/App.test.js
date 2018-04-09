@@ -1,17 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyMiddleware } from 'redux';
-import configureStore from 'redux-mock-store';
-import createSagaMiddleware from 'redux-saga';
 
 import App from '.';
 import { fetchHierarchySaga } from 'state/ducks/fetchHierarchy';
+import { commonTestSetup } from 'commonTest';
 
-const sagaMiddleWare = createSagaMiddleware()
-const mockStore = configureStore([sagaMiddleWare])
-const store = mockStore({})
-sagaMiddleWare.run(fetchHierarchySaga)
+const { store } = commonTestSetup()
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

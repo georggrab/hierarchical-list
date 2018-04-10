@@ -1,10 +1,11 @@
+// @flow
 import React from "react";
 import "./HierarchyListSettings.css";
 
 export type HierarchyListSettingsProps = {
   onExpandAllClicked: () => void,
   onCollapseAllClicked: () => void,
-  onInvalidateClicked: () => void,
+  onInvalidateClicked: (url: string) => void,
   invalidateUrl: string,
 };
 

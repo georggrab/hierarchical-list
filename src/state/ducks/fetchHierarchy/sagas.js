@@ -26,13 +26,12 @@ function* fetchHierarchy(action: HierarchyLoadAction) {
   }
 }
 
-function* transformHierarchy(action: HierarchyLoadAction) {
+function* transformHierarchy(action) {
   const hierarchies = yield call(jsonToHierarchy, action.data);
   yield put({ type: SET_HIERARCHIES, hierarchies: Map(hierarchies) });
 }
 
-// @flow-disable
-export function* fetchHierarchySaga() {
+export function* fetchHierarchySaga(): Generator<*, *, *> {
   yield takeLatest(LOAD_STARTED, fetchHierarchy);
   yield takeLatest(LOAD_INVALIDATED, fetchHierarchy);
   yield takeLatest(LOAD_COMPLETE, transformHierarchy);

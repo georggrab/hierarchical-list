@@ -1,8 +1,11 @@
 // @flow
 import type { Map } from "immutable";
 
-import type { HierarchyRowRecord } from ".";
-import { HierarchyRecord } from "state/ducks/hierarchy";
+import type {
+  HierarchyRowRecord,
+  HierarchyRecord,
+} from "state/ducks/hierarchy";
+import type { RecordOf, RecordFactory } from "immutable";
 
 const getChildHierarchyHelper = (
   state: Map<number, HierarchyRecord>,
@@ -13,8 +16,10 @@ const getChildHierarchyHelper = (
   if (hierarchy == null) {
     return null;
   }
-  hierarchy.payload.forEach((row) => {
-    getChildHierarchyHelper(state, row.childId, acc);
+  hierarchy.payload.forEach((row: HierarchyRowRecord) => {
+    if (row.childId) {
+      getChildHierarchyHelper(state, row.childId, acc);
+    }
   });
   acc.push(index);
 };
@@ -47,7 +52,7 @@ export const deleteHierarchyIfRowsEmpty = (
   hierarchyIndex: number
 ): Map<number, HierarchyRecord> => {
   const hierarchy = state.get(hierarchyIndex);
-  if (hierarchy.payload.size === 0) {
+  if (hierarchy && hierarchy.payload.size === 0) {
     return state.delete(hierarchyIndex);
   } else {
     return state;
@@ -60,8 +65,8 @@ export const updateExpansionAndChildIds = (
   return state.map((hierarchy) => {
     return hierarchy.set(
       "payload",
-      hierarchy.payload.map((row) => {
-        if (state.get(row.childId) == null) {
+      hierarchy.payload.map((row: HierarchyRowRecord) => {
+        if (row.childId != null && state.get(row.childId) == null) {
           return row.set("expanded", false).set("childId", null);
         } else {
           return row;
@@ -75,12 +80,16 @@ export const withoutRow = (
   state: Map<number, HierarchyRowRecord>,
   hierarchyIndex: number,
   rowIndex: number
-): State => {
+): Map<number, HierarchyRowRecord> => {
   const hierarchy = state.get(hierarchyIndex);
-  const row = getRow(hierarchy, rowIndex);
-  const newState = deleteChildHierarchies(state, row.childId);
-  return newState.setIn(
-    [hierarchyIndex, "payload"],
-    hierarchy.payload.filter((row) => rowIndex !== row.rowIndex)
-  );
+  if (hierarchy != null) {
+    const row = getRow(hierarchy, rowIndex);
+    const newState = deleteChildHierarchies(state, row.childId);
+    return newState.setIn(
+      [hierarchyIndex, "payload"],
+      hierarchy.payload.filter((row) => rowIndex !== row.rowIndex)
+    );
+  } else {
+    return state;
+  }
 };

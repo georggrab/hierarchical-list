@@ -1,5 +1,5 @@
 // @flow
-import { List, Record, Map } from "immutable";
+import { List, Record } from "immutable";
 import type { RecordOf, RecordFactory } from "immutable";
 
 export type HierarchyPayload = {

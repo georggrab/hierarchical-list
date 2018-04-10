@@ -31,7 +31,7 @@ function getChildRecord(baseRecord: any): ?any {
     return null;
   }
   const relation = Object.getOwnPropertyNames(baseRecord.kids);
-  if (relation.length != 1) {
+  if (relation.length !== 1) {
     return null;
   }
   return baseRecord.kids[relation].records;

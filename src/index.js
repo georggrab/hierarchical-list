@@ -9,11 +9,6 @@ import "./index.css";
 import App from "components/App";
 import registerServiceWorker from "./registerServiceWorker";
 import { hierarchyApp } from "./state";
-import {
-  singleChildHierarchyState,
-  flatHierarchyState,
-  multiNestedChildHierarchyState,
-} from "./testAssets/HierarchyList";
 
 import { fetchHierarchySaga } from "state/ducks/fetchHierarchy";
 import { LOAD_STARTED } from "./state/ducks/fetchHierarchy/types";

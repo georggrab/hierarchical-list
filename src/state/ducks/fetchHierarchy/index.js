@@ -1,6 +1,4 @@
 // @flow
-import type { RecordOf } from "immutable";
-
 import {
   LOAD_STARTED,
   LOAD_COMPLETE,

@@ -23,7 +23,7 @@ export const getRow = (
   hierarchy: HierarchyRecord,
   rowIndex: number
 ): ?HierarchyRowRecord => {
-  return hierarchy.payload.find((row) => row.rowIndex == rowIndex);
+  return hierarchy.payload.find((row) => row.rowIndex === rowIndex);
 };
 
 export const getChildHierarchies = (

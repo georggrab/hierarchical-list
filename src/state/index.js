@@ -1,6 +1,5 @@
 // @flow
-import { Map, Record } from "immutable";
-import { combineReducers } from "redux";
+import { Map } from "immutable";
 
 import type { HierarchyRecord, HierarchyAction } from "./ducks/hierarchy";
 import hierarchyReducer, { rootHierarchyReducer } from "./ducks/hierarchy";

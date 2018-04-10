@@ -2,7 +2,6 @@
 import { connect } from "react-redux";
 import { expandRow, deleteRow } from "state/ducks/hierarchy";
 
-import type { State } from "state";
 import HierarchyList from "components/HierarchyList";
 
 const mapStateToProps = (state) => {

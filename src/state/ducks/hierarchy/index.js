@@ -4,7 +4,6 @@ import { Map } from "immutable";
 import type { Action } from "state";
 import type { HierarchyRecord } from "state/ducks/hierarchy";
 import {
-  deleteChildHierarchies,
   withoutRow,
   deleteHierarchyIfRowsEmpty,
   updateExpansionAndChildIds,
@@ -52,6 +51,7 @@ export default function reducer(
         );
         return state.setIn([action.hierarchyIndex, "payload"], newList);
       }
+      return state;
     }
     case SET_HIERARCHIES: {
       return action.hierarchies;

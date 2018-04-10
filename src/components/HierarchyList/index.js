@@ -1,8 +1,7 @@
 // @flow
-import React, { Component } from "react";
+import React from "react";
 
-import type { RecordOf, RecordFactory } from "immutable";
-import { List, Map, Record } from "immutable";
+import { List, Map } from "immutable";
 
 import type {
   HierarchyRowRecord,

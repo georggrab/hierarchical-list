@@ -3,6 +3,7 @@ import { Map } from 'immutable'
 
 import type { Action } from 'state'
 import type { HierarchyRecord } from 'state/ducks/hierarchy'
+import { deleteHierarchies, withoutRow, deleteHierarchyIfRowsEmpty, updateExpansionAndChildIds } from './utils';
 
 export const EXPAND_ROW = 'app/hierarchy/EXPAND_ROW'
 export const SET_HIERARCHIES = 'app/hierarchy/SET_HIERARCHIES'
@@ -24,7 +25,8 @@ export default function reducer(state: Map<number, HierarchyRecord> = Map(), act
         case EXPAND_ROW: { 
             const hierarchy = state.get(action.hierarchyIndex);
             if (hierarchy != null) {
-                const newList = hierarchy.payload.setIn([action.rowIndex, 'expanded'], action.destinationState);
+                const rowIndex = hierarchy.payload.findKey((row) => action.rowIndex === row.rowIndex);
+                const newList = hierarchy.payload.setIn([rowIndex, 'expanded'], action.destinationState);
                 return state.setIn([action.hierarchyIndex, 'payload'], newList)
             }
         }
@@ -38,9 +40,9 @@ export default function reducer(state: Map<number, HierarchyRecord> = Map(), act
             return toggleHierarchy(state, false);
         }
         case DELETE_ROW: {
-            const row = state.getIn([action.hierarchyIndex, 'payload', action.rowIndex])
-            const newState = deleteHierarchies(state, row);
-            return withoutRow(newState, action.hierarchyIndex, action.rowIndex);
+            return updateExpansionAndChildIds(
+                deleteHierarchyIfRowsEmpty(
+                    withoutRow(state, action.hierarchyIndex, action.rowIndex), action.hierarchyIndex));
         }
         default:
             return state

@@ -1,53 +1,57 @@
 // @flow
-import { List, Map, Record, fromJS } from 'immutable'
-import { deleteChildHierarchies, withoutRow, getRow, deleteHierarchyIfRowsEmpty, updateExpansionAndChildIds } from './utils';
-import { multiNestedChildHierarchy } from 'testAssets/HierarchyList';
-import { getChildHierarchies } from './utils';
+import { List, Map, Record, fromJS } from "immutable";
+import {
+  deleteChildHierarchies,
+  withoutRow,
+  getRow,
+  deleteHierarchyIfRowsEmpty,
+  updateExpansionAndChildIds,
+} from "./utils";
+import { multiNestedChildHierarchy } from "testAssets/HierarchyList";
+import { getChildHierarchies } from "./utils";
 
-it('getChildHierarchy gets Child IDs', () => {
-    const state = multiNestedChildHierarchy;
-    expect(getChildHierarchies(state, 0)).toEqual([2, 3, 1])
-    expect(getChildHierarchies(state, 2)).toEqual([])
-})
-
-it('getRow should get correct rowIndex', () => {
-    const state = multiNestedChildHierarchy;
-    expect(getRow(state.get(0), 0))
-        .toBe(state.get(0).payload.get(0));
-    const newState = withoutRow(state, 0, 0);
-    expect(getRow(newState.get(0), 1))
-        .toBe(newState.get(0).payload.get(0));
+it("getChildHierarchy gets Child IDs", () => {
+  const state = multiNestedChildHierarchy;
+  expect(getChildHierarchies(state, 0)).toEqual([2, 3, 1]);
+  expect(getChildHierarchies(state, 2)).toEqual([]);
 });
 
-it('deleteChildHierarchies should delete Hierarchies recursively', () => {
-    const state = multiNestedChildHierarchy;
-    expect([...state.keys()].length).toBe(4);
-    const newState = deleteChildHierarchies(multiNestedChildHierarchy, 0);
-    expect([...newState.keys()].length).toBe(1);
-})
-
-it('deleteHierarchyIfRowsEmpty does not delete hierarchy if rows are there', () => {
-    const state = multiNestedChildHierarchy;
-    expect(deleteHierarchyIfRowsEmpty(state, 0)).toBe(state);
+it("getRow should get correct rowIndex", () => {
+  const state = multiNestedChildHierarchy;
+  expect(getRow(state.get(0), 0)).toBe(state.get(0).payload.get(0));
+  const newState = withoutRow(state, 0, 0);
+  expect(getRow(newState.get(0), 1)).toBe(newState.get(0).payload.get(0));
 });
 
-it('deleteHierarchyIfRowsEmpty deletes hierarchy if rows empty', () => {
-    const state = multiNestedChildHierarchy;
-    const state2 = withoutRow(state, 0, 0);
-    const state3 = withoutRow(state2, 0, 1);
-    expect(deleteHierarchyIfRowsEmpty(state3, 0).get(0)).toBe(undefined);
+it("deleteChildHierarchies should delete Hierarchies recursively", () => {
+  const state = multiNestedChildHierarchy;
+  expect([...state.keys()].length).toBe(4);
+  const newState = deleteChildHierarchies(multiNestedChildHierarchy, 0);
+  expect([...newState.keys()].length).toBe(1);
 });
 
-it('updateExpanionAndChildIds updates hierarchies correctly', () => {
-    const state = multiNestedChildHierarchy;
-    const state2 = deleteChildHierarchies(state, 0);
-    expect(state2.get(0).payload.get(0).childId).toBe(1);
-    const newState = updateExpansionAndChildIds(state2);
-    expect(newState.get(0).payload.get(0).childId).toBe(null);
+it("deleteHierarchyIfRowsEmpty does not delete hierarchy if rows are there", () => {
+  const state = multiNestedChildHierarchy;
+  expect(deleteHierarchyIfRowsEmpty(state, 0)).toBe(state);
 });
 
-it('withoutRow should remove row from state', () => {
-    const state = multiNestedChildHierarchy;
-    const newState = withoutRow(multiNestedChildHierarchy, 0, 1);
-    expect(newState.getIn([0, 'payload', 1])).toBe(undefined);
-})
+it("deleteHierarchyIfRowsEmpty deletes hierarchy if rows empty", () => {
+  const state = multiNestedChildHierarchy;
+  const state2 = withoutRow(state, 0, 0);
+  const state3 = withoutRow(state2, 0, 1);
+  expect(deleteHierarchyIfRowsEmpty(state3, 0).get(0)).toBe(undefined);
+});
+
+it("updateExpanionAndChildIds updates hierarchies correctly", () => {
+  const state = multiNestedChildHierarchy;
+  const state2 = deleteChildHierarchies(state, 0);
+  expect(state2.get(0).payload.get(0).childId).toBe(1);
+  const newState = updateExpansionAndChildIds(state2);
+  expect(newState.get(0).payload.get(0).childId).toBe(null);
+});
+
+it("withoutRow should remove row from state", () => {
+  const state = multiNestedChildHierarchy;
+  const newState = withoutRow(multiNestedChildHierarchy, 0, 1);
+  expect(newState.getIn([0, "payload", 1])).toBe(undefined);
+});

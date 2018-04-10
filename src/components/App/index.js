@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react';
-import 'typeface-inconsolata'
-import './App.css';
+import React from "react";
+import "typeface-inconsolata";
+import "./App.css";
 
-import HierarchyList from 'components/HierarchyList';
-import Hierarchy from 'containers/Hierarchy';
-import HierarchySettings from 'containers/HierarchySettings';
+import HierarchyList from "components/HierarchyList";
+import Hierarchy from "containers/Hierarchy";
+import HierarchySettings from "containers/HierarchySettings";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
       <HierarchySettings />
       <Hierarchy />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

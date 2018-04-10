@@ -1,19 +1,32 @@
-import React from 'react'
-import './HierarchyListSettings.css'
+import React from "react";
+import "./HierarchyListSettings.css";
 
 export type HierarchyListSettingsProps = {
-    onExpandAllClicked: () => void,
-    onCollapseAllClicked: () => void,
-    onInvalidateClicked: () => void,
-    invalidateUrl: string,
-}
+  onExpandAllClicked: () => void,
+  onCollapseAllClicked: () => void,
+  onInvalidateClicked: () => void,
+  invalidateUrl: string,
+};
 
 export const HierarchyListSettings = (props: HierarchyListSettingsProps) => {
-    return <section className="HierarchyListSettings">
-        <div className="expand" onClick={props.onExpandAllClicked}>expand all</div>
-        <div className="collapse" onClick={props.onCollapseAllClicked}>collapse all</div>
-        <div className="invalidate" onClick={() => {props.onInvalidateClicked(props.invalidateUrl)}}>invalidate</div>
+  return (
+    <section className="HierarchyListSettings">
+      <div className="expand" onClick={props.onExpandAllClicked}>
+        expand all
+      </div>
+      <div className="collapse" onClick={props.onCollapseAllClicked}>
+        collapse all
+      </div>
+      <div
+        className="invalidate"
+        onClick={() => {
+          props.onInvalidateClicked(props.invalidateUrl);
+        }}
+      >
+        invalidate
+      </div>
     </section>
-}
+  );
+};
 
-export default HierarchyListSettings
+export default HierarchyListSettings;

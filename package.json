@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
@@ -26,13 +27,19 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.0",
     "@storybook/react": "^3.4.0",
     "enzyme": "^3.3.0",
+    "husky": "^0.14.3",
     "json-stable-stringify": "^1.0.1",
+    "lint-staged": "^7.0.4",
     "redux-mock-store": "^1.5.1"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["npx prettier --write", "git add"]
   }
 }

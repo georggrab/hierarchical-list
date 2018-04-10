@@ -3,7 +3,7 @@ import { Map } from 'immutable'
 
 import type { Action } from 'state'
 import type { HierarchyRecord } from 'state/ducks/hierarchy'
-import { deleteHierarchies, withoutRow, deleteHierarchyIfRowsEmpty, updateExpansionAndChildIds } from './utils';
+import { deleteChildHierarchies, withoutRow, deleteHierarchyIfRowsEmpty, updateExpansionAndChildIds } from './utils';
 
 export const EXPAND_ROW = 'app/hierarchy/EXPAND_ROW'
 export const SET_HIERARCHIES = 'app/hierarchy/SET_HIERARCHIES'

@@ -25,7 +25,7 @@ export const getChildHierarchies = (state: Map<number, HierarchyRecord>, index: 
     return accumulator.slice(0, -1);
 }
 
-export const deleteHierarchies = (state: Map<number, HierarchyRecord>, index: number): Map<number, HierarchyRecord> => {
+export const deleteChildHierarchies = (state: Map<number, HierarchyRecord>, index: number): Map<number, HierarchyRecord> => {
     return state.deleteAll(getChildHierarchies(state, index));
 }
 
@@ -55,7 +55,7 @@ export const updateExpansionAndChildIds = (state: Map<number, HierarchyRecord>) 
 export const withoutRow = (state: Map<number, HierarchyRowRecord>, hierarchyIndex: number, rowIndex: number): State => {
     const hierarchy = state.get(hierarchyIndex)
     const row = getRow(hierarchy, rowIndex);
-    const newState = deleteHierarchies(state, row.childId);
+    const newState = deleteChildHierarchies(state, row.childId);
     return newState.setIn([hierarchyIndex, 'payload'], 
         hierarchy.payload.filter((row) => rowIndex !== row.rowIndex))
 }

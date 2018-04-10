@@ -52,7 +52,7 @@
 .HierarchyList-RowDelete {
     @extend %hierarchyListButton;
     p {
-        opacity: .6;
+        opacity: .3;
         transition: opacity linear .15s;
     }
     p:hover {

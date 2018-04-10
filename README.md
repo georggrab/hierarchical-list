@@ -2,6 +2,8 @@
 
 Implementation of a hierarchical list structure in React & Redux.
 
+[Check it out!](https://talkdirty.github.io/hierarchical-list/)
+
 ![Functionality Overview](assets/hierarchical-list.gif)
 
 ## Features

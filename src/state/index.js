@@ -24,7 +24,7 @@ export const initialState: State = {
   loadStatus: newLoadStatus({
     isLoading: false,
     isInvalidated: false,
-    dataOrigin: "/data-1.json",
+    dataOrigin: process.env.REACT_APP_ROOT_PATH + "data-1.json",
   }),
 };
 

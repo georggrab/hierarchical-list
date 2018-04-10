@@ -37,7 +37,11 @@ const Row = ({
     <div>
       <section className="HierarchyList-Row">
         <div className="HierarchyList-RowDelete">
-          <p onClick={() => onRowDelete(hierarchyIndex, row.rowIndex)}>🞨</p>
+          <p onClick={() => onRowDelete(hierarchyIndex, row.rowIndex)}>
+            <span aria-label="Delete Row" role="img">
+              x
+            </span>
+          </p>
         </div>
         <div className="HierarchyList-RowExpand">
           {row.childId != null && (

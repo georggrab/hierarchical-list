@@ -5,7 +5,6 @@ import type {
   HierarchyRowRecord,
   HierarchyRecord,
 } from "state/ducks/hierarchy";
-import type { RecordOf, RecordFactory } from "immutable";
 
 const getChildHierarchyHelper = (
   state: Map<number, HierarchyRecord>,
